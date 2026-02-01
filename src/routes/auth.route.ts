@@ -3,7 +3,7 @@ import { register, login } from '../controllers/auth.controller';
 import {
     registerValidator,
     loginValidator,
-} from '../validators/auth.validator';
+} from '../validators/auth.validator.ts';
 
 const router = Router();
 

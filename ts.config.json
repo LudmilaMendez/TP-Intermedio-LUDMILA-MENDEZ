@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "target": "ES2020",
-        "module": "commonjs",
         "lib": [
             "ES2020"
         ],
@@ -12,17 +11,26 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "moduleResolution": "node",
         "typeRoots": [
             "./src/types",
             "./node_modules/@types"
+        ],
+        "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": false,
+        "baseUrl": ".",
+    "paths": {
+            "*": [
+                "node_modules/*",
+                "src/@types/*"
+            ]
+        },
+        "include": [
+            "src/**/*"
+        ],
+        "exclude": [
+            "node_modules",
+            "dist"
         ]
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+}
 }

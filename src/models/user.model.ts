@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { UserRole } from '../types/auth';
 
-export interface IUser extends Document {
+export interface IUser extends Document {   //! LAS INTERFACES EN MONGODB EXTENDEN DE Document
     username: string;
     email: string;
     password: string;
@@ -10,7 +10,7 @@ export interface IUser extends Document {
     updatedAt: Date;
 }
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser>(  //! EL DOCUMENT CONTIENE UN ESQUEMA CON LAS PROPIEDADES, es como se definirian las tablas en mysql
     {
         username: {
             type: String,
@@ -25,7 +25,7 @@ const userSchema = new Schema<IUser>(
             unique: true,
             lowercase: true,
             trim: true,
-            match: [/^\S+@\S+\.\S+$/, 'Por favor ingresa un email válido'],
+            match: [/^\S+@\S+\.\S+$/, 'Por favor ingresa un email válido'],  //! ESTO AHORRARIA LAS VALIDACIONES
         },
         password: {
             type: String,
@@ -43,13 +43,13 @@ const userSchema = new Schema<IUser>(
     }
 );
 
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+//userSchema.index({ email: 1 });
+//userSchema.index({ username: 1 });
 
 export const User = mongoose.model<IUser>('User', userSchema);
 
 // Funciones del modelo (equivalente a MySQL)
-export interface UserData {
+export interface UserData {  //! 
     id: string;
     username: string;
     email: string;
@@ -61,9 +61,9 @@ export const findUser = async (
     email: string = '',
     username: string = ''
 ): Promise<UserData | null> => {
-    const user = await User.findOne({
+    const user = await User.findOne({  //!  PARA BUSCAR POR EMAIL O USERNAME EL QUE LE PASES
         $or: [{ email }, { username }],
-    });
+    }).lean ();;
 
     if (!user) return null;
 
@@ -83,9 +83,9 @@ export const createUser = async (
         username: user.username,
         email: user.email,
         password: user.password,
-        role: 'user', // Rol por defecto
+        role: 'user', //!  Rol por defecto ya que MONGO NO UTILIZA TRIGGER
     });
 
-    const savedUser = await newUser.save();
-    return savedUser._id.toString();
+    const saved = await newUser.save();
+    return saved._id.toString();
 };

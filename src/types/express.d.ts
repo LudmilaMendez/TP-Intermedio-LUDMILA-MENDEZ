@@ -1,10 +1,8 @@
-import { JwtPayload } from './auth';
-import * as express from 'express';
 
-declare global {
-    namespace Express {
-        interface Request {
-            user?: JwtPayload;
-        }
+import { JwtPayload } from './auth'; // Tu import actual
+
+declare module 'express-serve-static-core' {
+    interface Request {
+        user?: JwtPayload;
     }
 }
