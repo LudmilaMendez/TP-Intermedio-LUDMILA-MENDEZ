@@ -3,7 +3,7 @@ import path from 'path';
 import 'dotenv/config';
 
 import { connectDB } from './config/database';
-import authRoutes from './routes/auth.routes';
+import authRoutes from './routes/auth.route';
 import { authenticate, authorize } from './middlewares/auth.middleware';
 
 const app = express();

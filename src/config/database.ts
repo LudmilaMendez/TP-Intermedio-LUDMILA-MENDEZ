@@ -1,3 +1,5 @@
+// Equivalente al POOL DE CONEXIONES DE MYSQL
+
 import mongoose from 'mongoose';
 
 const MONGODB_URI =
